@@ -4,7 +4,7 @@ export default function TagFilter({ tags, selectedTag, setSelectedTag }) {
       {tags.map(tag => (
         <button
           key={tag}
-          className={`px-3 py-1 rounded-full border transition text-sm ${
+          className={`px-3 py-1 rounded-full border transition text-sm cursor-pointer ${
             selectedTag === tag ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-800"
           }`}
           onClick={() => setSelectedTag(tag)}
@@ -13,7 +13,7 @@ export default function TagFilter({ tags, selectedTag, setSelectedTag }) {
         </button>
       ))}
       {selectedTag && (
-        <button onClick={() => setSelectedTag(null)} className="text-sm text-red-500 underline">
+        <button onClick={() => setSelectedTag(null)} className="text-sm text-red-500 underline cursor-pointer">
           Clear filters
         </button>
       )}
