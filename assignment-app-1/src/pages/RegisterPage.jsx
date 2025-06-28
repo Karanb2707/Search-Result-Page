@@ -1,8 +1,25 @@
 import React from 'react';
+import {useFormik} from 'formik';
+import { signUpSchema } from '../schemas';
+
+const initialValues = {
+    name: "",
+    email: "",
+    password: "",
+    confirm_password: ""
+
+}
 
 const RegisterPage = () => {
 
-    
+    const { values, errors, touched, handleBlur, handleChange, handleSubmit} = useFormik({
+        initialValues: initialValues,
+        validationSchema: signUpSchema,
+        onSubmit: (values, action) => {
+            console.log('Register log', values);
+            action.resetForm();
+        },
+    })
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-300">
@@ -16,17 +33,24 @@ const RegisterPage = () => {
                 </div>
                 <div className="w-full md:w-1/2 p-8">
                     <h2 className="text-2xl font-bold mb-6 text-gray-800">Register</h2>
-                    <form className="space-y-4">
+                    <form onSubmit={handleSubmit} className="space-y-4">
                         <div>
                             <label htmlFor='name' className="block text-sm font-medium text-gray-700">Name</label>
                             <input
                                 type="name"
                                 autoComplete='off'
                                 name='name'
-                                id='name'
                                 placeholder='Name'
+                                value={values.name}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
                                 className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-red-700"
                             />
+                            {
+                                errors.name && touched.name ?
+                                <p className='text-red-500 text-[14px]'>{errors.name}</p>
+                                : null
+                            }
                         </div>
                         <div>
                             <label htmlFor='email' className="block text-sm font-medium text-gray-700">Email</label>
@@ -34,10 +58,17 @@ const RegisterPage = () => {
                                 type="email"
                                 autoComplete='off'
                                 name='email'
-                                id='email'
                                 placeholder='Email'
+                                value={values.email}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
                                 className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-red-700"
                             />
+                            {
+                                errors.email && touched.email ?
+                                <p className='text-red-500 text-[14px]'>{errors.email}</p>
+                                : null
+                            }
                         </div>
                         <div>
                             <label htmlFor='password' className="block text-sm font-medium text-gray-700">Password</label>
@@ -45,10 +76,17 @@ const RegisterPage = () => {
                                 type="password"
                                 autoComplete='off'
                                 name='password'
-                                id='password'
                                 placeholder='Password'
+                                value={values.password}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
                                 className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-red-700"
                             />
+                            {
+                                errors.password && touched.password ?
+                                <p className='text-red-500 text-[14px]'>{errors.password}</p>
+                                : null
+                            }
                         </div>
                         <div>
                             <label htmlFor='confirm_password' className="block text-sm font-medium text-gray-700">Confirm Password</label>
@@ -56,10 +94,17 @@ const RegisterPage = () => {
                                 type="password"
                                 autoComplete='off'
                                 name='confirm_password'
-                                id='confirm_password'
                                 placeholder='Confirm Password'
+                                value={values.confirm_password}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
                                 className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-red-700"
                             />
+                            {
+                                errors.confirm_password && touched.confirm_password ?
+                                <p className='text-red-500 text-[14px]'>{errors.confirm_password}</p>
+                                : null
+                            }
                         </div>
                         <button
                             type="submit"
